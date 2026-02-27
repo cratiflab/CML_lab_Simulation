@@ -1,0 +1,159 @@
+Interface              IP-Address      OK? Method Status                Protocol
+Ethernet0/0            192.168.1.113   YES NVRAM  up                    up      
+Ethernet0/1            10.0.0.2        YES manual up                    up      
+Ethernet0/2            unassigned      YES NVRAM  administratively down down    
+Ethernet0/3            unassigned      YES NVRAM  administratively down down    Building configuration...
+
+Current configuration : 3336 bytes
+!
+! Last configuration change at 10:01:58 UTC Fri Feb 6 2026 by admin
+!
+version 17.16
+service timestamps debug datetime msec
+service timestamps log datetime msec
+!
+hostname Router1
+!
+boot-start-marker
+boot-end-marker
+!
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+ip domain name creativetouch.lab
+ip cef
+login on-success log
+no ipv6 cef
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+crypto pki trustpoint TP-self-signed-131184658
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-131184658
+ revocation-check none
+ rsakeypair TP-self-signed-131184658
+ hash sha512
+!
+!
+crypto pki certificate chain TP-self-signed-131184658
+ certificate self-signed 01
+  3082032E 30820216 A0030201 02020101 300D0609 2A864886 F70D0101 0D050030 
+  30312E30 2C060355 04030C25 494F532D 53656C66 2D536967 6E65642D 43657274 
+  69666963 6174652D 31333131 38343635 38301E17 0D323630 32303630 37333830 
+  395A170D 33363032 30363037 33383039 5A303031 2E302C06 03550403 0C25494F 
+  532D5365 6C662D53 69676E65 642D4365 72746966 69636174 652D3133 31313834 
+  36353830 82012230 0D06092A 864886F7 0D010101 05000382 010F0030 82010A02 
+  82010100 CB98B7EE 8546C822 BF0D0CB0 3B764BAC A940F959 C6552BB6 6304EE75 
+  FBC62634 8934F08A 63608E4D F7F71E74 7FB925C5 787EFE9A DE641BCC A41121AA 
+  1169EF8F B08975F0 A580C428 765C3104 CE87639A 06F16739 D6CD60E2 D224D400 
+  7D6BBF52 7FF5C2B4 B14EC4E2 EF85F442 883F0781 F6F0244B 094C882B D0886C4C 
+  3443C3CA 0CFF2755 498E80FE 2FB52B2C F4FB3B44 6FB90ECF C002DA34 A5197ADB 
+  A7CD59E2 989106F5 723FD9E1 2FBE6B5F 4E2AA6E3 90837F14 585D892D 0F52E000 
+  9E2EC2FF A41B2058 696B482D CAC7ED6E 4AA0791B 2E7C886A 26054A0E 9AFA7DB7 
+  5B5D8527 801DCC41 C7DB0B28 6ED7176B F30BDEC7 229ACA50 9EF0DDF7 30EEC564 
+  8C89441B 02030100 01A35330 51301D06 03551D0E 04160414 6C93167B 764FFD12 
+  7416E9A2 4ED036CA 25100480 301F0603 551D2304 18301680 146C9316 7B764FFD 
+  127416E9 A24ED036 CA251004 80300F06 03551D13 0101FF04 05300301 01FF300D 
+  06092A86 4886F70D 01010D05 00038201 010096EE 32A85977 E4B25FA2 453EC413 
+  93E5CD24 520D8D63 DF7863FF F11E1FB0 0DDB142A 6506B805 88C4DBAE 40EA0C31 
+  AE355737 14D88653 643EFF37 38ED3D01 C767D8E8 B0B7922F A1F9FCFB EAFC261F 
+  3F751C83 B7F648A1 E2C94D67 CB2D9AED 76836A30 3DB2206C DB71A43F 6F777164 
+  08EC97E2 A3F99065 C5089F75 AF6AE66D DE59F90E 3CEF881D A5670BA2 48D666BE 
+  097206E4 560C029F 7AF1C015 A1A08D94 A8F606DB B2841867 D7EC5D42 E95BE799 
+  69908BCA 84F3179A 4D50A0BD 150025B5 059018CC 0F67E1C3 092F10FE 018CA2B8 
+  56889FBB 2CAB2F27 9C764D31 5BC00F57 96C421FF 3172D3B6 44D070D4 E9B0E268 
+  E7A25473 FFA06AE7 8726201A 8237B542 7CC7
+  	quit
+!
+!
+memory free low-watermark processor 79983
+!
+!
+spanning-tree mode rapid-pvst
+!
+!
+username admin privilege 15 secret 9 $9$SC3fTJhmNc.7R.$gxH1hHwsBubC6dVR...fEzhq3UKr4618wrAbdsseUWA
+!
+!
+!
+!
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Ethernet0/0
+ description Management_int
+ ip address 192.168.1.113 255.255.255.0
+!
+interface Ethernet0/1
+ ip address 10.0.0.2 255.255.255.0
+!
+interface Ethernet0/2
+ no ip address
+ shutdown
+!
+interface Ethernet0/3
+ no ip address
+ shutdown
+!
+router ospf 1
+ router-id 1.1.1.1
+!
+ip forward-protocol nd
+ip forward-protocol udp
+!
+!
+ip http server
+ip http secure-server
+ip ssh bulk-mode 131072
+no logging btrace
+!
+!
+!
+control-plane
+!
+!
+!
+line con 0
+ logging synchronous
+line aux 0
+line vty 0 4
+ login local
+ transport input ssh
+!
+!
+!
+!
+end

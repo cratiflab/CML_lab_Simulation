@@ -1,0 +1,21 @@
+{
+  "schema_version": "0.0.1",
+  "nodes": [
+    {
+      "id": "xubuntu-node",
+      "label": "Xubuntu",
+      "description": "Xubuntu 22.04 Desktop (Cloud Image)",
+      "node_definition_id": "ubuntu-server",
+      "image_id": "xubuntu-jammy",
+      "interfaces": 1,
+      "cpu": 2,
+      "ram": 4096,
+      "data_volume": 8192,
+      "console_type": "vnc",
+      "boot_disk": true,
+      "nic_adapter": "virtio",
+      "disk_driver": "virtio",
+      "ui_visible": true
+    }
+  ]
+}

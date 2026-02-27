@@ -1,0 +1,144 @@
+Interface              IP-Address      OK? Method Status                Protocol
+Ethernet0/0            unassigned      YES unset  up                    up      
+Ethernet0/1            unassigned      YES unset  up                    up      
+Ethernet0/2            unassigned      YES unset  up                    up      
+Ethernet0/3            unassigned      YES unset  up                    up      
+Vlan10                 192.168.1.115   YES NVRAM  up                    up      Building configuration...
+
+Current configuration : 3428 bytes
+!
+! Last configuration change at 07:37:45 UTC Fri Feb 6 2026
+!
+version 17.16
+service timestamps debug datetime msec
+service timestamps log datetime msec
+!
+hostname SW1
+!
+boot-start-marker
+boot-end-marker
+!
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+ip audit notify log
+ip audit po max-events 100
+ip domain name creativetouch.lab
+ip cef
+login on-success log
+no ipv6 cef
+!
+!
+!
+!
+!
+!
+!
+!
+crypto pki trustpoint TP-self-signed-131184660
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-131184660
+ revocation-check none
+ rsakeypair TP-self-signed-131184660
+ hash sha512
+!
+!
+crypto pki certificate chain TP-self-signed-131184660
+ certificate self-signed 01
+  3082032E 30820216 A0030201 02020101 300D0609 2A864886 F70D0101 0D050030 
+  30312E30 2C060355 04030C25 494F532D 53656C66 2D536967 6E65642D 43657274 
+  69666963 6174652D 31333131 38343636 30301E17 0D323630 32303630 37333830 
+  355A170D 33363032 30363037 33383035 5A303031 2E302C06 03550403 0C25494F 
+  532D5365 6C662D53 69676E65 642D4365 72746966 69636174 652D3133 31313834 
+  36363030 82012230 0D06092A 864886F7 0D010101 05000382 010F0030 82010A02 
+  82010100 BC8FCF01 7C36EE51 3E18EA55 872F114E 95CC51C2 F545FF4E A8C38299 
+  F5940F3E 82B4A03A 58C63D94 AE12073E 50E0FEC3 C883D684 6BD1FFB1 848C849C 
+  2559F56C 63443189 7F067C5B 01951C51 E5470504 6596614B 1981DC75 E4A6E40C 
+  F50D8D15 B92C16CE BB0E9028 E8CFCBBA 39A35494 7EC65D75 232081C4 82CE781A 
+  BBFA6806 D1ED8BB2 CE2456D7 A92A4FCE 666E0A11 47A59709 DA4C996E AD0E9D38 
+  151CCD84 7B36FCA0 76974F39 90A4C176 BAD8993F A0D9E3AA 64FE3F96 6D9034D9 
+  54BD3BD4 7FB53AA3 34C043C6 80D008A0 C105F1C1 7FB7AEE2 9F5647BF F636D7E0 
+  C64DD87D 65017E81 E449695F AF701C04 B74745DD E17AE1C5 D2C42B4D 86E5E4EB 
+  08C66BB9 02030100 01A35330 51301D06 03551D0E 04160414 58905DBB 3C5359D3 
+  475C3535 F21FEEE5 5218FC57 301F0603 551D2304 18301680 1458905D BB3C5359 
+  D3475C35 35F21FEE E55218FC 57300F06 03551D13 0101FF04 05300301 01FF300D 
+  06092A86 4886F70D 01010D05 00038201 01007DF7 A120EACA 2678802E BEE1DAEF 
+  BC47BC03 DB058F06 E4C8E89B 46A56915 F464E51E 0432BE13 C7D8697C 5CA360F1 
+  C862A6D4 05DA6F95 AAB39954 8341A821 16342082 E7FF5452 36B03771 37625EE6 
+  2DD2EBB3 E6D8E374 888485CE 2E0F0E30 A6554A44 79D4AC5C 324F1098 C7EFBF41 
+  846521DB BF423129 54D3940E 42648104 57382D2F CEFBCE89 AE370D1D 8D2B2BE9 
+  4C88A14B CC98AD0F C34E7FE6 57EB02E7 C6962B14 0E1E6C39 7ECFD125 378345FC 
+  F35FED27 6EC89BCB C7705645 61AA8C7A F685E1A8 F9D09CB3 D4CE6385 8579CE96 
+  060CA039 6B68EE87 2EB66E10 76A1C306 47B59D81 416DAA49 046F17BD 03DE253F 
+  3B03D80C 4AC937FC 7425C0B7 8DD97BCB 8D09
+  	quit
+!
+!
+memory free low-watermark processor 79497
+!
+!
+spanning-tree mode rapid-pvst
+spanning-tree extend system-id
+!
+username admin privilege 15 secret 9 $9$5xqo.4l62XyD5U$gbZCoeW0Cn8H7ny0Es5kKL2eLBYyIBg4LgCQFksay86
+!
+vlan internal allocation policy ascending
+!
+!
+!
+!
+!
+interface Ethernet0/0
+ switchport access vlan 10
+ switchport mode access
+!
+interface Ethernet0/1
+ switchport access vlan 10
+ switchport mode access
+!
+interface Ethernet0/2
+ switchport access vlan 10
+ switchport mode access
+!
+interface Ethernet0/3
+!
+interface Vlan10
+ ip address 192.168.1.115 255.255.255.0
+!
+ip forward-protocol nd
+ip forward-protocol udp
+!
+!
+ip http server
+ip http secure-server
+ip ssh bulk-mode 131072
+!
+no logging btrace
+!
+!
+!
+control-plane
+!
+!
+!
+line con 0
+ logging synchronous
+line aux 0
+line vty 0 4
+ login local
+ transport input ssh
+!
+!
+end
